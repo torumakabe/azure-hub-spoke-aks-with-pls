@@ -45,6 +45,7 @@ VNet for projects are able to have the same address space as others and On-premi
   * Private Endpoint to Project VNet
     * for AKS API Server
     * for AKS Services: HTTP and gRPC
+  * Private Endpoint to multi tenant managed service (Azure Container Registry)
 * Project VNet
   * Private AKS Cluster
   * Private Link Service to HTTP service (NGINX and Apache) on AKS with Application Gateway
