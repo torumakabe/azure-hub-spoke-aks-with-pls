@@ -1,0 +1,18 @@
+#cloud-config
+runcmd:
+  - apt update
+  - apt install -y gnupg software-properties-common ca-certificates curl apt-transport-https lsb-release
+  - curl -fsSL https://apt.releases.hashicorp.com/gpg | apt-key add -
+  - apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
+  - curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg
+  - echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | tee /etc/apt/sources.list.d/github-cli.list > /dev/null
+  - apt remove azure-cli -y && apt autoremove -y
+  - curl -sL https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor | tee /etc/apt/trusted.gpg.d/microsoft.gpg > /dev/null
+  - echo "deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ $(lsb_release -cs) main" | tee /etc/apt/sources.list.d/azure-cli.list
+  - apt update
+  - apt install -y terraform gh azure-cli
+  - wget https://github.com/fullstorydev/grpcurl/releases/download/v1.8.6/grpcurl_1.8.6_linux_x86_64.tar.gz
+  - tar -xvf grpcurl_1.8.6_linux_x86_64.tar.gz
+  - mv grpcurl /usr/local/bin/grpcurl
+  - rm grpcurl_1.8.6_linux_x86_64.tar.gz
+  - rm LICENSE
